@@ -14,21 +14,22 @@ data = {"user": user, "password": password}
 path = input("Enter folder location where attachments will be saved: ")
 
 #taking file type to downlaod
-print("1 : for xlsx type")
-print("2 : for csv type")
-print("3 : for any type")
+# print("1 : for xlsx type")
+# print("2 : for csv type")
+# print("3 : for any type")
 
-choice = input("Select file type of email attachments: ")
-selected_type = ''
-match choice:
-    case '1':
-        selected_type = 'xlsx'
-    case '2':
-        selected_type = 'csv'
-    case '3' :
-        selected_type = 'any'
+# choice = input("Select file type of email attachments: ")
+# selected_type = ''
+# match choice:
+#     case '1':
+#         selected_type = 'xlsx'
+#     case '2':
+#         selected_type = 'csv'
+#     case '3' :
+#         selected_type = 'any'
 
 
+#function
 def download_attachment_automatically(data, path ,selected_type):
     try:
         # writing to a yaml file the user credential
@@ -49,7 +50,7 @@ def download_attachment_automatically(data, path ,selected_type):
         
         # date time
         today_date = datetime.now()
-        yesterday_date = today_date - timedelta(days=5) 
+        yesterday_date = today_date - timedelta(days=1) 
 
         # subjects that we need to search in the inbox for attachment download
         SEARCH_SUBJECT = [
@@ -106,15 +107,15 @@ def download_attachment_automatically(data, path ,selected_type):
                             
                             #selecting specifile file type to download
                             # print(type(filename))
-                            revtype = ''
-                            revfilename = filename[::-1]
-                            for char in revfilename:
-                                if char == '.':
-                                    break;
-                                else:
-                                    revtype += char
+                            # revtype = ''
+                            # revfilename = filename[::-1]
+                            # for char in revfilename:
+                            #     if char == '.':
+                            #         break;
+                            #     else:
+                            #         revtype += char
                             
-                            type = revtype[::-1]
+                            # type = revtype[::-1]
                             
                             # print(type) 
                             
@@ -122,28 +123,28 @@ def download_attachment_automatically(data, path ,selected_type):
                             #this is the part where if filename is got then it is sotring to the sprecific folder path we gave
                             
                             #downloads specific type of file given by user    
-                            if type == selected_type:
-                                 if filename:
-                                    filepath = os.path.join(SAVE_FOLDER, filename)
-                                    with open(filepath, 'wb') as f:
-                                        f.write(part.get_payload(decode=True))
-                                    print(f"Attachment saved: {filename}")
+                            # if type == selected_type:
+                            #      if filename:
+                            #         filepath = os.path.join(SAVE_FOLDER, filename)
+                            #         with open(filepath, 'wb') as f:
+                            #             f.write(part.get_payload(decode=True))
+                            #         print(f"Attachment saved: {filename}")
                             # else:
                             #     print("No emails found with the specified filet")
                                 
                             #download any type of file
-                            if selected_type == 'any' :
-                                 if filename:
-                                    filepath = os.path.join(SAVE_FOLDER, filename)
-                                    with open(filepath, 'wb') as f:
-                                        f.write(part.get_payload(decode=True))
-                                    print(f"Attachment saved: {filename}")
+                            # if selected_type == 'any' :
+                            #      if filename:
+                            #         filepath = os.path.join(SAVE_FOLDER, filename)
+                            #         with open(filepath, 'wb') as f:
+                            #             f.write(part.get_payload(decode=True))
+                            #         print(f"Attachment saved: {filename}")
                                 
-                            # if filename:
-                            #     filepath = os.path.join(SAVE_FOLDER, filename)
-                            #     with open(filepath, 'wb') as f:
-                            #         f.write(part.get_payload(decode=True))
-                            #     print(f"Attachment saved: {filename}")
+                            if filename:
+                                filepath = os.path.join(SAVE_FOLDER, filename)
+                                with open(filepath, 'wb') as f:
+                                    f.write(part.get_payload(decode=True))
+                                print(f"Attachment saved: {filename}")
                             # else:
                             #     print("No emails found with the specified subject")
                     
@@ -156,5 +157,6 @@ def download_attachment_automatically(data, path ,selected_type):
     except Exception as e:
         print(f"An error occurred: {e}")
 
-# Call the function with provided parameters
-download_attachment_automatically(data, path,selected_type)
+# function called
+# download_attachment_automatically(data, path,selected_type)
+download_attachment_automatically(data, path)
